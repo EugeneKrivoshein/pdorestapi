@@ -1,0 +1,28 @@
+<?php
+//header
+header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json');
+header('Access-Control-Allow-Method: DELETE');
+header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Method, X-Requested-With');
+
+include_once '../../config/database.php';
+include_once '../../models/Post.php';
+
+$database = new Database;
+$db = $database->connect();
+
+$post = new Post($db);
+
+$data = json_decode(file_get_contents("php://input"));
+
+$post->id = $data->id;
+
+if ($post->delete()) {
+    echo json_encode(
+        array('message' => 'post deleted')
+    );
+} else {
+    echo json_encode(
+        array('message' => 'post not deleted')
+    );
+}
