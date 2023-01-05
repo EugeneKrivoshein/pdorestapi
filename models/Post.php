@@ -5,6 +5,7 @@ class Post
     private $table = 'posts';
 
     public $id;
+    public $body;
     public $category_id;
     public $category_name;
     public $title;
